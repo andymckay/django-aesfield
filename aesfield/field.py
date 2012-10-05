@@ -10,7 +10,7 @@ class EncryptedField(Exception):
     pass
 
 
-class AESField(models.CharField):
+class AESField(models.TextField):
 
     description = 'A field that uses AES encryption.'
     __metaclass__ = models.SubfieldBase
@@ -38,7 +38,7 @@ class AESField(models.CharField):
 
     def get_db_prep_value(self, value, connection, prepared=False):
         if not prepared and value:
-            return self._encrypt(value)
+            return self.aes_prefix + self._encrypt(value)
         return value
 
     def _encrypt(self, value):
@@ -49,7 +49,7 @@ class AESField(models.CharField):
     def to_python(self, value):
         if not value or not value.startswith(self.aes_prefix):
             return value
-        return self._decrypt(value)
+        return self._decrypt(value[len(self.aes_prefix):])
 
     def _decrypt(self, value):
         secret = Secret()
