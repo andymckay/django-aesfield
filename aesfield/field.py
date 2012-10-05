@@ -16,7 +16,6 @@ class AESField(models.TextField):
     __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
-        # TODO: raise an error if the field length is too small.
         self.aes_prefix = kwargs.pop('aes_prefix', 'aes:')
         if not self.aes_prefix:
             raise ValueError('AES Prefix cannot be null.')
