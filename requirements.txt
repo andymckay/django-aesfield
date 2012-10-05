@@ -1,0 +1,3 @@
+nose
+django
+m2secret
