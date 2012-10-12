@@ -42,7 +42,7 @@ class AESField(models.TextField):
 
     def _encrypt(self, value):
         secret = Secret()
-        secret.encrypt(value, self.get_aes_key())
+        secret.encrypt(str(value), self.get_aes_key())
         return secret.serialize()
 
     def to_python(self, value):
@@ -52,5 +52,5 @@ class AESField(models.TextField):
 
     def _decrypt(self, value):
         secret = Secret()
-        secret.deserialize(value)
+        secret.deserialize(str(value))
         return secret.decrypt(self.get_aes_key())
