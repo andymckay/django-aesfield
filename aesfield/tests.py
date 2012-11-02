@@ -59,3 +59,6 @@ class TestBasic(TestCase):
                   '12345678901234567',
                   u'1'.encode('ascii')]:
             eq_(k, f._decrypt(f._encrypt(k)))
+
+    def test_short(self):
+        eq_(AESField()._decrypt('aes:'), '')

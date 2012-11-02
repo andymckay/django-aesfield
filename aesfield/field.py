@@ -52,5 +52,10 @@ class AESField(models.TextField):
 
     def _decrypt(self, value):
         secret = Secret()
-        secret.deserialize(value)
+        try:
+            secret.deserialize(value)
+        except ValueError:
+            # When we've got an incorrect value in the db and doing a split
+            # fails. Let's just return '' if thats the case.
+            return ''
         return secret.decrypt(self.get_aes_key())
