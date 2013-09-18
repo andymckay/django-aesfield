@@ -54,3 +54,19 @@ class AESField(models.TextField):
         secret = Secret()
         secret.deserialize(value)
         return secret.decrypt(self.get_aes_key())
+
+
+# South support.
+try:
+    from south.modelsinspector import add_introspection_rules
+except ImportError:
+    pass
+else:
+    add_introspection_rules(rules=[(
+        (AESField,),
+        [],
+        {
+            'aes_prefix': ['aes_prefix', {'default': 'aes:'}],
+            'aes_key': ['aes_key', {'default': ''}],
+        },
+    )], patterns=['^aesfield\.field\.AESField'])
