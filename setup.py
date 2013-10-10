@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='django-aesfield',
-    version='0.1',
+    version='0.2',
     description='Django Model Field that supports AES encryption',
     long_description=open('README.rst').read(),
     author='Andy McKay',

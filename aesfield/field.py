@@ -42,7 +42,7 @@ class AESField(models.TextField):
 
     def _encrypt(self, value):
         secret = Secret()
-        secret.encrypt(value, self.get_aes_key())
+        secret.encrypt(value.encode('ascii'), self.get_aes_key())
         return secret.serialize()
 
     def to_python(self, value):
