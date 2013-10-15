@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
-from django.db import connection
 from django.utils.importlib import import_module
+from django.utils.encoding import smart_str
 
 from m2secret import Secret
 
@@ -42,7 +42,7 @@ class AESField(models.TextField):
 
     def _encrypt(self, value):
         secret = Secret()
-        secret.encrypt(value, self.get_aes_key())
+        secret.encrypt(smart_str(value), self.get_aes_key())
         return secret.serialize()
 
     def to_python(self, value):
