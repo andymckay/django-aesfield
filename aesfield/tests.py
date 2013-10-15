@@ -59,13 +59,10 @@ class TestBasic(TestCase):
                   '1234567890123456',
                   '12345678901234567',
                   u'ራ'.encode('utf8')]:
-            eq_(k, f._decrypt(f._encrypt(k)))
+            eq_(k.decode('utf8'), f._decrypt(f._encrypt(k)))
 
     def test_not_encoded(self):
         t = TestModel()
         f = t._meta.get_field('key')
         k = u'ራ'
-        # The unicode string was not encoded, it will only match when we
-        # force an encoding. Be sure you know what encoding is being stored,
-        # as ever.
-        eq_(k.encode('utf8'), f._decrypt(f._encrypt(k)))
+        eq_(k, f._decrypt(f._encrypt(k)))

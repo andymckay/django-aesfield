@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.importlib import import_module
-from django.utils.encoding import smart_str
+from django.utils.encoding import smart_str, smart_unicode
 
 from m2secret import Secret
 
@@ -53,7 +53,7 @@ class AESField(models.TextField):
     def _decrypt(self, value):
         secret = Secret()
         secret.deserialize(value)
-        return secret.decrypt(self.get_aes_key())
+        return smart_unicode(secret.decrypt(self.get_aes_key()))
 
 
 # South support.
