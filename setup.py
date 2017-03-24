@@ -18,7 +18,7 @@ setup(
               'aesfield/management/commands'],
     install_requires=[
         'Django>=1.8,<1.11',
-        'm2secret-py3>=1.1'
+        'm2secret-py3>=1.3'
     ],
     classifiers=[
         'Intended Audience :: Developers',
