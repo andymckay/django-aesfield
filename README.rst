@@ -2,9 +2,9 @@ AES Field
 =============
 
 Provides an AES field for Django that does AES encryption and decryption
-using `M2Crypto`_, a Python wrapper for OpenSSL.
+using `m2secret-py3`_, a Python wrapper for OpenSSL.
 
-.. _M2Crypto: https://pypi.python.org/pypi/M2Crypto
+.. _M2Crypto: https://pypi.python.org/pypi/m2secret-py3
 
 Usage
 -----
