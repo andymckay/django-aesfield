@@ -35,11 +35,10 @@ class AESField(models.TextField):
             raise ValueError('Passphrase cannot be less than 10 chars.')
         return result
 
-    def get_prep_lookup(self, type, value):
+    def _no_lookup(self, *args, **kwargs):
         raise EncryptedField('You cannot do lookups on an encrypted field.')
 
-    def get_db_prep_lookup(self, *args, **kw):
-        raise EncryptedField('You cannot do lookups on an encrypted field.')
+    get_db_prep_lookup = get_prep_lookup = get_lookup = _no_lookup
 
     def from_db_value(self, value, expression, connection, context):
         if not value or not value.startswith(self.aes_prefix):
