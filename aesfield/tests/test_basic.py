@@ -4,6 +4,7 @@ import tempfile
 
 from django.conf import settings
 from django.db import models
+from django.utils.encoding import force_bytes, force_text
 
 import pytest
 
@@ -29,7 +30,7 @@ class TestBasic(object):
     def test_get_key(self, settings):
         key = 'some-super-secret-key'
         temporary_file = tempfile.NamedTemporaryFile()
-        temporary_file.write(key)
+        temporary_file.write(force_bytes(key))
         temporary_file.flush()
 
         settings.AES_KEYS = {'default': temporary_file.name}
@@ -46,7 +47,7 @@ class TestBasic(object):
     def test_encrypt_decrypt(self, key):
         test_model = AESTestModel()
         field = test_model._meta.get_field('key')
-        assert key.decode('utf-8') == field._decrypt(field._encrypt(key))
+        assert force_text(key) == field._decrypt(field._encrypt(key))
 
     def test_not_encoded(self):
         test_model = AESTestModel()

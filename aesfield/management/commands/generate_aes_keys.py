@@ -38,7 +38,7 @@ class Command(BaseCommand):
             with open(dest, 'wb') as fp:
                 fp.write(generate_key(options['length']))
 
-            os.chmod(dest, 0600)
+            os.chmod(dest, 0o0600)
             self.stdout.write(self.style.SUCCESS('Wrote new key: %s' % dest))
 
         if failures:
