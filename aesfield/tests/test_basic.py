@@ -54,3 +54,11 @@ class TestBasic(object):
         field = test_model._meta.get_field('key')
         key = u'ራ'
         assert key == field._decrypt(field._encrypt(key))
+
+    def test_deconstruct(self):
+        test_model = AESTestModel()
+        field = test_model._meta.get_field('key')
+        name, path, args, kwargs = field.deconstruct()
+        assert kwargs['aes_method'] == 'aesfield.default'
+        assert kwargs['aes_prefix'] == 'aes:'
+        assert kwargs['aes_key'] == ''

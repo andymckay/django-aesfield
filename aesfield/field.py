@@ -2,6 +2,7 @@ from importlib import import_module
 
 from django.conf import settings
 from django.db import models
+from django.db.migrations.writer import SettingsReference
 from django.utils.encoding import smart_bytes, smart_text
 
 from m2secret import Secret
@@ -23,7 +24,8 @@ class AESField(models.TextField):
         super(AESField, self).__init__(*args, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super(HandField, self).deconstruct()
+        name, path, args, kwargs = super(AESField, self).deconstruct()
+        kwargs['aes_method'] = SettingsReference(self.aes_method, 'AES_METHOD')
         # TODO: Should `aes_method` be present in the serialized form too?
         kwargs['aes_prefix'] = self.aes_prefix
         kwargs['aes_key'] = self.aes_key
