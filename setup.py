@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='django-aesfield',
-    version='0.3.0',
+    version='0.4.0',
     description='Django Model Field that supports AES encryption',
     long_description=open('README.rst').read(),
     author='Andy McKay',
@@ -16,9 +16,10 @@ setup(
     packages=['aesfield',
               'aesfield/management',
               'aesfield/management/commands'],
-    install_requires=['M2Crypto>=0.18',
-                      'Django>=1.3',
-                      'm2secret>=0.1.1'],
+    install_requires=[
+        'Django>=1.8,<1.11',
+        'm2secret-py3>=1.3'
+    ],
     classifiers=[
         'Intended Audience :: Developers',
         'Natural Language :: English',

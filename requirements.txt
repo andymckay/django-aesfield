@@ -1,3 +1,4 @@
-nose
 django
-m2secret
+m2secret-py3
+pytest
+pytest-django
