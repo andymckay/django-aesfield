@@ -1,4 +1,0 @@
-django
-m2secret-py3
-pytest
-pytest-django
