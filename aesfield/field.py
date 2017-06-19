@@ -19,14 +19,14 @@ class AESField(models.TextField):
         self.aes_prefix = kwargs.pop('aes_prefix', 'aes:')
         if not self.aes_prefix:
             raise ValueError('AES Prefix cannot be null.')
-        self.aes_method = getattr(settings, 'AES_METHOD', 'aesfield.default')
+        self.aes_method = kwargs.pop(
+            'aes_method', getattr(settings, 'AES_METHOD', 'aesfield.default'))
         self.aes_key = kwargs.pop('aes_key', '')
         super(AESField, self).__init__(*args, **kwargs)
 
     def deconstruct(self):
         name, path, args, kwargs = super(AESField, self).deconstruct()
         kwargs['aes_method'] = SettingsReference(self.aes_method, 'AES_METHOD')
-        # TODO: Should `aes_method` be present in the serialized form too?
         kwargs['aes_prefix'] = self.aes_prefix
         kwargs['aes_key'] = self.aes_key
         return name, path, args, kwargs
