@@ -62,3 +62,10 @@ class TestBasic(object):
         assert kwargs['aes_method'] == 'aesfield.default'
         assert kwargs['aes_prefix'] == 'aes:'
         assert kwargs['aes_key'] == ''
+
+    def test_reinitialize_with_deconstruct(self):
+        test_model = AESTestModel()
+        field = test_model._meta.get_field('key')
+        name, path, args, kwargs = field.deconstruct()
+
+        AESField(*args, **kwargs)
