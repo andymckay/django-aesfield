@@ -16,7 +16,7 @@ class AESField(models.TextField):
     description = 'A field that uses AES encryption.'
 
     def __init__(self, *args, **kwargs):
-        self.aes_prefix = smart_bytes(kwargs.pop('aes_prefix', b'aes:'))
+        self.aes_prefix = smart_text(kwargs.pop('aes_prefix', u'aes:'))
         if not self.aes_prefix:
             raise ValueError('AES Prefix cannot be null.')
         self.aes_method = kwargs.pop(
@@ -61,7 +61,7 @@ class AESField(models.TextField):
     def _encrypt(self, value):
         secret = Secret()
         secret.encrypt(smart_bytes(value), self.get_aes_key())
-        return secret.serialize()
+        return smart_text(secret.serialize())
 
     def _decrypt(self, value):
         secret = Secret()
