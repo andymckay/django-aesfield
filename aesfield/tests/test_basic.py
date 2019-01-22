@@ -12,7 +12,7 @@ from aesfield.management.commands.generate_aes_keys import (
 
 
 class AESTestModel(models.Model):
-    key = AESField(max_length=255, aes_prefix='new-aes:')
+    key = AESField(max_length=255, aes_prefix=u'new-aes:')
 
 
 class TestBasic(object):
@@ -57,8 +57,8 @@ class TestBasic(object):
         test_model = AESTestModel()
         field = test_model._meta.get_field('key')
         name, path, args, kwargs = field.deconstruct()
-        assert kwargs['aes_method'] == 'aesfield.default'
-        assert kwargs['aes_prefix'] == 'new-aes:'
+        assert kwargs['aes_method'] == u'aesfield.default'
+        assert kwargs['aes_prefix'] == u'new-aes:'
         assert kwargs['aes_key'] == ''
 
     def test_reinitialize_with_deconstruct(self):
@@ -69,7 +69,7 @@ class TestBasic(object):
         AESField(*args, **kwargs)
 
     def test_save_retrieve_aes_prefix(self, db):
-        AESTestModel.objects.create(key='1231322131')
+        AESTestModel.objects.create(key=u'1231322131')
 
         obj = AESTestModel.objects.get()
-        assert obj.key == '1231322131'
+        assert obj.key == u'1231322131'
