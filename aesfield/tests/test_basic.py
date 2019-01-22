@@ -1,8 +1,6 @@
 # -*- coding: utf8 -*-
-import os
 import tempfile
 
-from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_bytes, force_text
 
@@ -14,7 +12,7 @@ from aesfield.management.commands.generate_aes_keys import (
 
 
 class AESTestModel(models.Model):
-    key = AESField(max_length=255)
+    key = AESField(max_length=255, aes_prefix='new-aes:')
 
 
 class TestBasic(object):
@@ -60,7 +58,7 @@ class TestBasic(object):
         field = test_model._meta.get_field('key')
         name, path, args, kwargs = field.deconstruct()
         assert kwargs['aes_method'] == 'aesfield.default'
-        assert kwargs['aes_prefix'] == 'aes:'
+        assert kwargs['aes_prefix'] == 'new-aes:'
         assert kwargs['aes_key'] == ''
 
     def test_reinitialize_with_deconstruct(self):
@@ -69,3 +67,9 @@ class TestBasic(object):
         name, path, args, kwargs = field.deconstruct()
 
         AESField(*args, **kwargs)
+
+    def test_save_retrieve_aes_prefix(self, db):
+        AESTestModel.objects.create(key='1231322131')
+
+        obj = AESTestModel.objects.get()
+        assert obj.key == '1231322131'

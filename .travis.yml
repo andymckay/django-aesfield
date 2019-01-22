@@ -1,30 +1,23 @@
-sudo: false
-
 language: python
 
 python:
   - '2.7'
-  - '3.5'
   - '3.6'
+  - '3.7'
 
 env:
-  - DJANGO_VERSION=2.0.x
   - DJANGO_VERSION=1.11.x
-  - DJANGO_VERSION=1.8.x
+  - DJANGO_VERSION=2.0.x
+  - DJANGO_VERSION=2.1.x
 matrix:
   exclude:
     - python: 2.7
       env: DJANGO_VERSION=2.0.x
+    - python: 2.7
+      env: DJANGO_VERSION=2.1.x
 
 install:
   - pip install tox
 
 script:
   - tox -e "$TRAVIS_PYTHON_VERSION-$DJANGO_VERSION"
-
-notifications:
-  irc:
-    channels:
-      - 'irc.mozilla.org#amo-bots'
-    on_success: change
-    on_failure: always
