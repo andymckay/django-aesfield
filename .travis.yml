@@ -2,20 +2,13 @@ language: python
 dist: xenial
 
 python:
-  - 2.7
   - 3.6
   - 3.7
+  - 3.8
 
 env:
-  - DJANGO_VERSION=1.11.x
-  - DJANGO_VERSION=2.0.x
-  - DJANGO_VERSION=2.1.x
-matrix:
-  exclude:
-    - python: 2.7
-      env: DJANGO_VERSION=2.0.x
-    - python: 2.7
-      env: DJANGO_VERSION=2.1.x
+  - DJANGO_VERSION=2.2.x
+  - DJANGO_VERSION=3.0.x
 
 install:
   - pip install tox
