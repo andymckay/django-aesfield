@@ -42,7 +42,7 @@ class AESField(models.TextField):
 
     get_db_prep_lookup = get_prep_lookup = get_lookup = _no_lookup
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection):
         if not value or not value.startswith(self.aes_prefix):
             return value
         return self._decrypt(value[len(self.aes_prefix):])
