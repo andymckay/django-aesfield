@@ -23,7 +23,7 @@ def read(*parts):
 
 
 install_requires = [
-    'Django>=1.11,<=2.1',
+    'Django>=2.2,<4.0',
     'm2secret-py3>=1.3'
 ]
 
@@ -60,11 +60,11 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Security :: Cryptography',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: Implementation :: CPython',
         'Framework :: Django',
     ]
