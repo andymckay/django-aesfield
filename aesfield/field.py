@@ -3,7 +3,7 @@ from importlib import import_module
 from django.conf import settings
 from django.db import models
 from django.db.migrations.writer import SettingsReference
-from django.utils.encoding import smart_bytes, smart_text
+from django.utils.encoding import smart_bytes, smart_str
 
 from m2secret import Secret
 
@@ -16,7 +16,7 @@ class AESField(models.TextField):
     description = 'A field that uses AES encryption.'
 
     def __init__(self, *args, **kwargs):
-        self.aes_prefix = smart_text(kwargs.pop('aes_prefix', u'aes:'))
+        self.aes_prefix = smart_str(kwargs.pop('aes_prefix', u'aes:'))
         if not self.aes_prefix:
             raise ValueError('AES Prefix cannot be null.')
         self.aes_method = kwargs.pop(
@@ -61,9 +61,9 @@ class AESField(models.TextField):
     def _encrypt(self, value):
         secret = Secret()
         secret.encrypt(smart_bytes(value), self.get_aes_key())
-        return smart_text(secret.serialize())
+        return smart_str(secret.serialize())
 
     def _decrypt(self, value):
         secret = Secret()
         secret.deserialize(value)
-        return smart_text(secret.decrypt(self.get_aes_key()))
+        return smart_str(secret.decrypt(self.get_aes_key()))
