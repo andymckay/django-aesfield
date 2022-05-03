@@ -16,8 +16,8 @@ jobs:
       max-parallel: 4
       fail-fast: false
       matrix:
-        python: [3.8, 3.9, 3.10]
-        django: [3.2.13, 4.0.4]
+        python: ["3.8", "3.9", "3.10"]
+        django: ["3.2.13", "4.0.4"]
 
     steps:
     - uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
         python-version: ${{ matrix.python }}
     
     - name: install generic deps and django
-      run: pip install --upgrade pip setuptools wheel django~=${{ matrix.django }}
+      run: pip install --upgrade pip setuptools wheel six django~=${{ matrix.django }}
     
     - name: install package and deps
       run: pip install -e .
