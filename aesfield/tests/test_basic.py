@@ -2,7 +2,7 @@
 import tempfile
 
 from django.db import models
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 
 import pytest
 
@@ -45,7 +45,7 @@ class TestBasic(object):
     def test_encrypt_decrypt(self, key):
         test_model = AESTestModel()
         field = test_model._meta.get_field('key')
-        assert force_text(key) == field._decrypt(field._encrypt(key))
+        assert force_str(key) == field._decrypt(field._encrypt(key))
 
     def test_not_encoded(self):
         test_model = AESTestModel()
