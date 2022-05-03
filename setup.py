@@ -23,14 +23,14 @@ def read(*parts):
 
 
 install_requires = [
-    'Django>=2.2,<4.0',
+    'Django>=3.2,<5.0',
     'm2secret-py3>=1.3'
 ]
 
 
 test_requires = [
-    'pytest==3.1.2',
-    'pytest-django==3.1.2',
+    'pytest==7.1.2',
+    'pytest-django==4.5.2',
 ]
 
 
@@ -61,10 +61,9 @@ setup(
         'Topic :: Security :: Cryptography',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython',
         'Framework :: Django',
     ]
