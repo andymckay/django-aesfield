@@ -6,7 +6,7 @@ from django.utils.encoding import force_bytes, force_str
 
 import pytest
 
-from aesfield.field import AESField, EncryptedField
+from aesfield.field import AESField
 from aesfield.management.commands.generate_aes_keys import (
     Command, CommandError)
 
@@ -16,10 +16,6 @@ class AESTestModel(models.Model):
 
 
 class TestBasic(object):
-
-    def test_lookup(self):
-        with pytest.raises(EncryptedField):
-            AESTestModel.objects.filter(key='asd')
 
     def test_no_prefix(self):
         with pytest.raises(ValueError):
