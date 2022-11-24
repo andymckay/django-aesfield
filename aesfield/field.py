@@ -8,10 +8,6 @@ from django.utils.encoding import smart_bytes, smart_str
 from m2secret import Secret
 
 
-class EncryptedField(Exception):
-    pass
-
-
 class AESField(models.TextField):
     description = 'A field that uses AES encryption.'
 
@@ -36,11 +32,6 @@ class AESField(models.TextField):
         if len(result) < 10:
             raise ValueError('Passphrase cannot be less than 10 chars.')
         return result
-
-    def _no_lookup(self, *args, **kwargs):
-        raise EncryptedField('You cannot do lookups on an encrypted field.')
-
-    get_db_prep_lookup = get_prep_lookup = get_lookup = _no_lookup
 
     def from_db_value(self, value, expression, connection):
         if not value or not value.startswith(self.aes_prefix):
